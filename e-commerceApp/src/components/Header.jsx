@@ -1,14 +1,19 @@
 import React from "react";
 import "./Header.css";
-import { Link } from "react-router";
+import mobileLogo from "../assets/images/mobile-logo-white.png";
+import whiteLogo from "../assets/images/logo-white.png";
+import searchIcon from "../assets/images/icons/search-icon.png";
+import cartIcon from "../assets/images/icons/cart-icon.png";
+
+import { Link, NavLink } from "react-router";
 export default function Header() {
   return (
     <>
       <div className="header">
         <div className="left-section">
           <Link to="/" className="header-link">
-            <img className="logo" src="images/logo-white.png" />
-            <img className="mobile-logo" src="images/mobile-logo-white.png" />
+            <img className="logo" src={whiteLogo} />
+            <img className="mobile-logo" src={mobileLogo} />
           </Link>
         </div>
 
@@ -16,17 +21,17 @@ export default function Header() {
           <input className="search-bar" type="text" placeholder="Search" />
 
           <button className="search-button">
-            <img className="search-icon" src="images/icons/search-icon.png" />
+            <img className="search-icon" src={searchIcon} />
           </button>
         </div>
 
         <div className="right-section">
-          <Link className="orders-link header-link" to="/orders">
+          <NavLink className="orders-link header-link" to="/orders">
             <span className="orders-text">Orders</span>
-          </Link>
+          </NavLink>
 
           <Link className="cart-link header-link" to="/checkout">
-            <img className="cart-icon" src="images/icons/cart-icon.png" />
+            <img className="cart-icon" src={cartIcon} />
             <div className="cart-quantity">3</div>
             <div className="cart-text">Cart</div>
           </Link>

@@ -1,11 +1,12 @@
 import React from "react";
 import "./TrackingPage.css";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { Link } from "react-router";
 
 export default function TrackingPage() {
   return (
     <>
+      <link rel="icon" type="image/svg+xml" href="tracking-favicon.png" />
       <title>Tracking</title>
       <Header />
 

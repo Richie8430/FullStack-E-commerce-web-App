@@ -1,10 +1,11 @@
 import React from "react";
 import "./HomePage.css";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 
 export default function HomePage() {
   return (
     <>
+      <link rel="icon" type="image/svg+xml" href="home-favicon.png" />
       <Header />
       <div className="home-page">
         <div className="products-grid">
