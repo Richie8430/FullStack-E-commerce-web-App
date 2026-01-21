@@ -3,8 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./HomePage.css";
 import Header from "../../components/Header";
+import { formatMoney } from "../../utils/money";
 
-export default function HomePage() {
+export default function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:3000/api/products").then((response) => {
@@ -15,7 +16,7 @@ export default function HomePage() {
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="home-favicon.png" />
-      <Header />
+      <Header cart={cart} />
       <div className="home-page">
         <div className="products-grid">
           {products.map((product) => {
@@ -24,7 +25,6 @@ export default function HomePage() {
                 <div className="product-image-container">
                   <img className="product-image" src={product.image} />
                 </div>
-
                 <div className="product-name limit-text-to-2-lines">
                   {product.name}
                 </div>
@@ -42,7 +42,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="product-price">
-                  ${(product.priceCents / 100).toFixed(2)}
+                  {formatMoney(product.priceCents)}
                 </div>
 
                 <div className="product-quantity-container">
@@ -66,7 +66,6 @@ export default function HomePage() {
                   <img src="images/icons/checkmark.png" />
                   Added
                 </div>
-
                 <button className="add-to-cart-button button-primary">
                   Add to Cart
                 </button>

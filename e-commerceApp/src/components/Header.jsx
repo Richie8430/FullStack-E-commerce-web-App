@@ -6,7 +6,12 @@ import searchIcon from "../assets/images/icons/search-icon.png";
 import cartIcon from "../assets/images/icons/cart-icon.png";
 
 import { Link, NavLink } from "react-router";
-export default function Header() {
+export default function Header({ cart }) {
+  let totalQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    totalQuantity += cartItem.quantity;
+  });
   return (
     <>
       <div className="header">
@@ -32,7 +37,7 @@ export default function Header() {
 
           <Link className="cart-link header-link" to="/checkout">
             <img className="cart-icon" src={cartIcon} />
-            <div className="cart-quantity">3</div>
+            <div className="cart-quantity">{totalQuantity}</div>
             <div className="cart-text">Cart</div>
           </Link>
         </div>
