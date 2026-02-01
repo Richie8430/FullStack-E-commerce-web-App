@@ -5,11 +5,11 @@ import "./HomePage.css";
 import Header from "../../components/Header";
 import ProductsGrid from "./ProductsGrid";
 
-export default function HomePage({ cart }) {
+export default function HomePage({ cart, loadCart }) {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchProductData = async () => {
-      const response = await axios.get("http://localhost:3000/api/products");
+      const response = await axios.get("/api/products");
       setProducts(response.data);
     };
 
@@ -21,7 +21,7 @@ export default function HomePage({ cart }) {
       <link rel="icon" type="image/svg+xml" href="home-favicon.png" />
       <Header cart={cart} />
       <div className="home-page">
-        <ProductsGrid products={products} />
+        <ProductsGrid products={products} loadCart={loadCart} />
       </div>
     </>
   );
