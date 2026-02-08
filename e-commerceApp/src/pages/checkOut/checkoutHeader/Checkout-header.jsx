@@ -4,7 +4,13 @@ import logo from "../../../assets/images/logo.png";
 import mobilelogo from "../../../assets/images/mobile-logo.png";
 import checkoutLock from "../../../assets/images/icons/checkout-lock-icon.png";
 import { Link } from "react-router";
-export default function CheckoutHeader() {
+
+export default function CheckoutHeader({ cart }) {
+  let totalItems = 0;
+
+  cart.forEach((cartItem) => {
+    totalItems += cartItem.quantity;
+  });
   return (
     <>
       <div className="checkout-header">
@@ -19,7 +25,7 @@ export default function CheckoutHeader() {
           <div className="checkout-header-middle-section">
             Checkout (
             <Link className="return-to-home-link" to="/">
-              3 items
+              {totalItems}
             </Link>
             )
           </div>
