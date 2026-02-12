@@ -16,12 +16,18 @@ export default function CheckOut({ cart, loadCart }) {
       );
 
       setDeliveryOptions(response.data);
-
-      response = await axios.get("/api/payment-summary");
-      setPaymentsummary(response.data);
     };
 
     fetchCheckOutData();
+  }, []);
+
+  useEffect(() => {
+    async function updatepayment() {
+      const response = await axios.get("/api/payment-summary");
+      setPaymentsummary(response.data);
+    }
+
+    updatepayment();
   }, [cart]);
 
   return (

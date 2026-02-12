@@ -4,7 +4,7 @@ import { formatMoney } from "../../utils/money";
 import OrderDetailsGrid from "./OrderDetailsGrid";
 import OrdersHeader from "./OrdersHeader";
 
-function OrdersGrid({ orders }) {
+function OrdersGrid({ orders, loadCart }) {
   return (
     <div className="orders-grid">
       {orders.map((order) => {
@@ -12,7 +12,7 @@ function OrdersGrid({ orders }) {
           <div key={order.id} className="order-container">
             <OrdersHeader order={order} />
 
-            <OrderDetailsGrid order={order} />
+            <OrderDetailsGrid order={order} loadCart={loadCart} />
           </div>
         );
       })}

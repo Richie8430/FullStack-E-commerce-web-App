@@ -7,6 +7,8 @@ import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+window.axios = axios;
+
 function App() {
   const [cart, setCart] = useState([]);
 
@@ -25,7 +27,10 @@ function App() {
         path="checkout"
         element={<CheckOut cart={cart} loadCart={loadCart} />}
       />
-      <Route path="orders" element={<Orders cart={cart} />} />
+      <Route
+        path="orders"
+        element={<Orders cart={cart} loadCart={loadCart} />}
+      />
       <Route path="tracking/:orderId/:productId" element={<TrackingPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
