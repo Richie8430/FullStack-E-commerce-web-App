@@ -24,7 +24,7 @@ function Product({ product, loadCart }) {
 
   return (
     <div key={product.id} className="product-container">
-      <div className="product-image-container">
+      <div className="product-image-container" data-testid="product-container">
         <img
           className="product-image"
           data-testid="product-image"
@@ -67,7 +67,11 @@ function Product({ product, loadCart }) {
         <img src="images/icons/checkmark.png" />
         Added
       </div>
-      <button className="add-to-cart-button button-primary" onClick={addToCart}>
+      <button
+        className="add-to-cart-button button-primary"
+        data-testid="addTocart-btn"
+        onClick={addToCart}
+      >
         Add to Cart
       </button>
     </div>
