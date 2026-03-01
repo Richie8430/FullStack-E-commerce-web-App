@@ -1,5 +1,4 @@
 import { it, expect, describe, vi, beforeEach } from "vitest";
-import Product from "./Product";
 import { MemoryRouter } from "react-router";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -10,7 +9,7 @@ vi.mock("axios");
 
 describe("Homepage component", () => {
   let loadCart;
-
+  vi.clearAllMocks();
   beforeEach(() => {
     loadCart = vi.fn();
 
@@ -45,6 +44,7 @@ describe("Homepage component", () => {
       }
     });
   });
+
   it("displays the products", async () => {
     render(
       <MemoryRouter>
@@ -65,5 +65,75 @@ describe("Homepage component", () => {
     expect(
       within(productContainers[1]).getByText("Intermediate Size Basketball"),
     ).toBeInTheDocument();
+  });
+
+  // it("it checks Nth click for add to cart button and calls axios.post", async () => {
+  //   render(
+  //     <MemoryRouter>
+  //       <HomePage cart={[]} loadCart={loadCart} />
+  //     </MemoryRouter>,
+  //   );
+
+  //   const productContainers = await screen.findAllByTestId("product-container");
+  //   const user = userEvent.setup();
+  //   const button1 = within(productContainers[0]).getByTestId("addTocart-btn");
+  //   await user.click(button1);
+
+  //   const button2 = within(productContainers[1]).getByTestId("addTocart-btn");
+  //   await user.click(button2);
+
+  //   expect(axios.post).toHaveBeenCalledTimes(2);
+
+  //   expect(axios.post).toHaveBeenNthCalledWith(1, "/api/cart-items", {
+  //     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+  //     quantity: 1,
+  //   });
+
+  //   expect(axios.post).toHaveBeenNthCalledWith(2, "/api/cart-items", {
+  //     productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+  //     quantity: 1,
+  //   });
+
+  //   expect(loadCart).toHaveBeenCalledTimes(2);
+  // });
+  it("checks quantitySelector on multiple products", async () => {
+    render(
+      <MemoryRouter>
+        <HomePage cart={[]} loadCart={loadCart} />
+      </MemoryRouter>,
+    );
+
+    const productContainers = await screen.findAllByTestId("product-container");
+    const user = userEvent.setup();
+
+    // PRODUCT 1
+    const selector1 = within(productContainers[0]).getByTestId(
+      "product-quantity",
+    );
+    await user.selectOptions(selector1, "2");
+    ~expect(selector1.value).toBe("2");
+
+    const button1 = within(productContainers[0]).getByTestId("addTocart-btn");
+    await user.click(button1);
+
+    expect(axios.post).toHaveBeenNthCalledWith(1, "/api/cart-items", {
+      productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      quantity: 2,
+    });
+    // PRODUCT 2
+    const selector2 = within(productContainers[1]).getByTestId(
+      "product-quantity",
+    );
+    await user.selectOptions(selector2, "3");
+
+    expect(selector2.value).toBe("3");
+
+    const button2 = within(productContainers[1]).getByTestId("addTocart-btn");
+    await user.click(button2);
+
+    expect(axios.post).toHaveBeenNthCalledWith(2, "/api/cart-items", {
+      productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+      quantity: 3,
+    });
   });
 });

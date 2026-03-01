@@ -23,8 +23,12 @@ function Product({ product, loadCart }) {
   };
 
   return (
-    <div key={product.id} className="product-container">
-      <div className="product-image-container" data-testid="product-container">
+    <div
+      key={product.id}
+      className="product-container"
+      data-testid="product-container"
+    >
+      <div className="product-image-container">
         <img
           className="product-image"
           data-testid="product-image"
@@ -47,7 +51,11 @@ function Product({ product, loadCart }) {
       <div className="product-price">{formatMoney(product.priceCents)}</div>
 
       <div className="product-quantity-container">
-        <select value={quantity} onChange={handleSelector}>
+        <select
+          value={quantity}
+          onChange={handleSelector}
+          data-testid="product-quantity"
+        >
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
